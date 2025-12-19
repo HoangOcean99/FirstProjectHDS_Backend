@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\LamViec\\HDSoft\\p1-product-managing-backend\\p1-product-managing-backend.csproj": {}
+    "E:\\LamViec\\HDSoft\\FirstProject\\FirstProjectHDS_Backend\\p1-product-managing-backend\\p1-product-managing-backend.csproj": {}
   },
   "projects": {
-    "E:\\LamViec\\HDSoft\\p1-product-managing-backend\\p1-product-managing-backend.csproj": {
+    "E:\\LamViec\\HDSoft\\FirstProject\\FirstProjectHDS_Backend\\p1-product-managing-backend\\p1-product-managing-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\LamViec\\HDSoft\\p1-product-managing-backend\\p1-product-managing-backend.csproj",
+        "projectUniqueName": "E:\\LamViec\\HDSoft\\FirstProject\\FirstProjectHDS_Backend\\p1-product-managing-backend\\p1-product-managing-backend.csproj",
         "projectName": "p1-product-managing-backend",
-        "projectPath": "E:\\LamViec\\HDSoft\\p1-product-managing-backend\\p1-product-managing-backend.csproj",
+        "projectPath": "E:\\LamViec\\HDSoft\\FirstProject\\FirstProjectHDS_Backend\\p1-product-managing-backend\\p1-product-managing-backend.csproj",
         "packagesPath": "C:\\Users\\Duong\\.nuget\\packages\\",
-        "outputPath": "E:\\LamViec\\HDSoft\\p1-product-managing-backend\\obj\\",
+        "outputPath": "E:\\LamViec\\HDSoft\\FirstProject\\FirstProjectHDS_Backend\\p1-product-managing-backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

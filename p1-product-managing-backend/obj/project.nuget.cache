@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+1vZ0xK9P/A=",
+  "dgSpecHash": "L4mPynjn2Qs=",
   "success": true,
-  "projectFilePath": "E:\\LamViec\\HDSoft\\p1-product-managing-backend\\p1-product-managing-backend.csproj",
+  "projectFilePath": "E:\\LamViec\\HDSoft\\FirstProject\\FirstProjectHDS_Backend\\p1-product-managing-backend\\p1-product-managing-backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Duong\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\Duong\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",
