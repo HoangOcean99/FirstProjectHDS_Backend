@@ -24,9 +24,13 @@ public class SaleOutController : ControllerBase
         return Ok(data);
     }
 
-    [HttpDelete]
-    public async Task<bool> Delete([FromBody] Guid id)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
     {
+        var isDeleted = await _saleOutService.deleteSaleOut(id);
+        if (!isDeleted)
+            return NotFound(new { message = "Không tìm thấy sản phẩm để xóa." });
 
+        return Ok(new { message = "Xóa sản phẩm thành công." });
     }
 }
