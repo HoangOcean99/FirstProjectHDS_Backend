@@ -29,6 +29,7 @@ public class TemplateFileService : ITemplateFileService
             using (var stream = new MemoryStream())
             {
                 await package.SaveAsAsync(stream);
+                stream.Position = 0;
                 return stream.ToArray();
             }
         }

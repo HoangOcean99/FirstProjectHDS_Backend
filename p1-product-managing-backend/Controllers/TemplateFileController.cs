@@ -14,8 +14,14 @@ public class TemplateFileController : ControllerBase
     public async Task<IActionResult> DownloadTemplate([FromBody] List<string> columns)
     {
         var fileBytes = await _templateFileService.GenerateExcelTemplateAsync(columns);
-        return File(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "TemplateMasterProduct.xlsx");
+
+        return File(
+            fileBytes,
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "TemplateMasterProduct.xlsx"
+        );
     }
+
 
     [HttpPost("upload-template")]
     [Consumes("multipart/form-data")]
