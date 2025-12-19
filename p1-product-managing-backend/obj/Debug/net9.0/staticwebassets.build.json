@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "Cnp368npQHUjAKDU92cpA5QHsHsHVykeIuHxo6XSAMw=",
+  "Source": "p1-product-managing-backend",
+  "BasePath": "_content/p1-product-managing-backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
