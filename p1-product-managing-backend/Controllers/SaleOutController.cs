@@ -33,4 +33,10 @@ public class SaleOutController : ControllerBase
 
         return Ok(new { message = "Xóa sản phẩm thành công." });
     }
+    [HttpPut]
+    public async Task<IActionResult> Edit([FromBody] SaleOut saleOut)
+    {
+        var data = await _saleOutService.editSaleOut(saleOut);
+        return Ok(data);
+    }
 }
