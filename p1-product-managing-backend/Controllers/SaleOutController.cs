@@ -16,4 +16,17 @@ public class SaleOutController : ControllerBase
         var data = await _saleOutService.GetAll();
         return Ok(data);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Insert([FromBody] SaleOut saleOut)
+    {
+        var data = await _saleOutService.AddSaleOutAsync(saleOut);
+        return Ok(data);
+    }
+
+    [HttpDelete]
+    public async Task<bool> Delete([FromBody] Guid id)
+    {
+
+    }
 }

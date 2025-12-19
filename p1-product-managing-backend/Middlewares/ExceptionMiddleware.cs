@@ -25,6 +25,12 @@ public class ExceptionMiddleware
                 message = ex.Message
             });
         }
+        catch (DuplicateSQLException ex)
+        {
+            context.Response.StatusCode = ex.StatusCode;
+            await context.Response.WriteAsJsonAsync(new { message = ex.Message });
+        }
+
         catch (Exception ex)
         {
             _logger.LogError(ex, "Unhandled exception");

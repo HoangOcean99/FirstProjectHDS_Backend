@@ -29,44 +29,89 @@ public class SaleOutService : ISaleOutService
                 s.BoxQuantity
             from SaleOut s
             join MasterProduct p on s.ProductId = p.Id
-            order by s.CustomerPoNo
+            order by s.CustomerPoNo, p.ProductCode
         """;
         using var conn = _context.CreateConnection();
         return await conn.QueryAsync<SaleOut>(sql);
     }
-    public async Task<IEnumerable<SaleOut>> addMasterProduct(SaleOut saleOut)
+    public async Task<SaleOut> AddSaleOutAsync(SaleOut saleOut)
     {
-        var insertSql = """
-            INSERT INTO MasterProduct (CustomerPoNo, OrderDate, CustomerName,
-            ProductId, Quantity, Price, Amount, QuantityPerBox, BoxQuantity)
-            OUTPUT INSERTED.id
-            VALUES
-                (@CustomerPoNo, @OrderDate, @CustomerName,
-                @ProductId, @Quantity, @Price, @Amount, @QuantityPerBox, @BoxQuantity)
-        """;
-
         using var conn = _context.CreateConnection();
+
+        var selectProductSql = """
+        SELECT Id
+        FROM MasterProduct
+        WHERE ProductCode = @ProductCode
+    """;
+
+        Guid productId;
+        try
+        {
+            productId = await conn.QuerySingleAsync<Guid>(
+                selectProductSql,
+                new { saleOut.ProductCode }
+            );
+        }
+        catch
+        {
+            throw new Exception("Không tìm thấy sản phẩm");
+        }
+
+        var insertSql = """
+        INSERT INTO SaleOut (
+            CustomerPoNo, OrderDate, CustomerName,
+            ProductId, Quantity, Price, QuantityPerBox, BoxQuantity
+        )
+        OUTPUT INSERTED.Id
+        VALUES (
+            @CustomerPoNo, @OrderDate, @CustomerName,
+            @ProductId, @Quantity, @Price, @QuantityPerBox, @BoxQuantity
+        )
+    """;
         Guid idInsert;
         try
         {
-            idInsert = await conn.QuerySingleAsync<Guid>(insertSql, saleOut);
+            idInsert = await conn.QuerySingleAsync<Guid>(
+                insertSql,
+                new
+                {
+                    saleOut.CustomerPoNo,
+                    saleOut.OrderDate,
+                    saleOut.CustomerName,
+                    ProductId = productId,
+                    saleOut.Quantity,
+                    saleOut.Price,
+                    saleOut.QuantityPerBox,
+                    saleOut.BoxQuantity
+                }
+            );
         }
         catch (SqlException ex) when (ex.Number == 2627 || ex.Number == 2601)
         {
-            throw new DuplicateWaitObjectException("Số PO khách hàng: " + saleOut.CustomerPoNo +, ex);
+            throw new DuplicateSQLException(
+                $"Số PO khách hàng: {saleOut.CustomerPoNo}; Mã sản phẩm: {saleOut.ProductCode} đã có trên hệ thống",
+                StatusCodes.Status409Conflict
+            );
+
         }
+
 
         var selectSql = """
-            SELECT Id, ProductCode, ProductName, Unit, 
-                Specification, QuantityPerBox, ProductWeight
-            FROM MasterProduct
-            WHERE Id = @Id 
-        """;
+        SELECT *
+        FROM SaleOut
+        WHERE Id = @Id
+    """;
 
-        var productInserted = await conn.QueryAsync<MasterProduct>(selectSql, new { Id = idInsert });
-        if (productInserted == null)
-        {
-            throw new Exception("Không thể truy xuất sản phẩm vừa được tạo");
-        }
-        return productInserted;
+        return await conn.QuerySingleAsync<SaleOut>(selectSql, new { Id = idInsert });
     }
+    public async Task<bool> deleteSaleOut(Guid Id)
+    {
+        var sql = """
+            DELETE FROM SaleOut
+            WHERE Id = @Id
+        """;
+        using var conn = _context.CreateConnection();
+        int affectedRows = await conn.ExecuteAsync(sql, new { Id = Id });
+        return (affectedRows > 0);
+    }
+}
