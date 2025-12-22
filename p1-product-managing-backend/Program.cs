@@ -10,7 +10,6 @@ builder.Services.AddScoped<ValidationUploadFileMasterProduct>();
 builder.Services.AddScoped<ValidationUploadFileSaleOut>();
 
 
-
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 builder.Services.AddCors(options =>

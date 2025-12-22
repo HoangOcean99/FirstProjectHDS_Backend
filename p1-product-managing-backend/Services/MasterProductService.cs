@@ -7,11 +7,11 @@ using Microsoft.Data.SqlClient;
 public class MasterProductService : IMasterProductService
 {
     private readonly DapperContext _context;
+    
     public MasterProductService(DapperContext context)
     {
         _context = context;
     }
-
 
     public async Task<IEnumerable<MasterProduct>> GetAll()
     {
@@ -24,6 +24,7 @@ public class MasterProductService : IMasterProductService
         using var conn = _context.CreateConnection();
         return await conn.QueryAsync<MasterProduct>(sql);
     }
+    
     public async Task<IEnumerable<MasterProduct>> addMasterProduct(MasterProduct masterProduct)
     {
         var insertSql = """

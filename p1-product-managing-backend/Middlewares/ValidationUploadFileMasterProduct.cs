@@ -8,6 +8,8 @@ public class ValidationUploadFileMasterProduct
     {
         _context = context;
     }
+   
+
     public void ValidateRequiredFields(MasterProduct product, int row)
     {
         if (string.IsNullOrWhiteSpace(product.ProductCode))
@@ -28,6 +30,7 @@ public class ValidationUploadFileMasterProduct
         if (product.ProductWeight <= 0)
             throw new Exception("Trọng lượng không được để trống và phải lớn hơn 0");
     }
+
 
     public async Task ValidateDuplicateCodeAsync(
         string productCode,

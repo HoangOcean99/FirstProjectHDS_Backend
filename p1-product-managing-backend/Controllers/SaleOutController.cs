@@ -10,6 +10,7 @@ public class SaleOutController : ControllerBase
         _saleOutService = saleOutService;
     }
 
+
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -17,12 +18,14 @@ public class SaleOutController : ControllerBase
         return Ok(data);
     }
 
+
     [HttpPost]
     public async Task<IActionResult> Insert([FromBody] SaleOut saleOut)
     {
         var data = await _saleOutService.AddSaleOutAsync(saleOut);
         return Ok(data);
     }
+
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
@@ -33,6 +36,8 @@ public class SaleOutController : ControllerBase
 
         return Ok(new { message = "Xóa sản phẩm thành công." });
     }
+    
+    
     [HttpPut]
     public async Task<IActionResult> Edit([FromBody] SaleOut saleOut)
     {

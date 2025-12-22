@@ -6,6 +6,7 @@ using Microsoft.Data.SqlClient;
 public class SaleOutService : ISaleOutService
 {
     private readonly DapperContext _context;
+    
     public SaleOutService(DapperContext context)
     {
         _context = context;
@@ -34,6 +35,7 @@ public class SaleOutService : ISaleOutService
         using var conn = _context.CreateConnection();
         return await conn.QueryAsync<SaleOut>(sql);
     }
+    
     public async Task<SaleOut> AddSaleOutAsync(SaleOut saleOut)
     {
         using var conn = _context.CreateConnection();
@@ -104,6 +106,7 @@ public class SaleOutService : ISaleOutService
 
         return await conn.QuerySingleAsync<SaleOut>(selectSql, new { Id = idInsert });
     }
+    
     public async Task<bool> deleteSaleOut(Guid Id)
     {
         var sql = """

@@ -10,6 +10,7 @@ public class TemplateFileController : ControllerBase
         _templateFileService = templateFileService;
     }
 
+
     [HttpPost("download-report")]
     public async Task<IActionResult> DownloadReport([FromBody] ReportRequest reportRequest)
     {
@@ -21,6 +22,7 @@ public class TemplateFileController : ControllerBase
             "SaleOutReport.xlsx" 
         );
     }
+
 
     [HttpPost("download-template")]
     public async Task<IActionResult> DownloadTemplate([FromBody] List<string> columns)
@@ -58,6 +60,8 @@ public class TemplateFileController : ControllerBase
             inserted = result.InsertedRow
         });
     }
+
+
     [HttpPost("upload-templateSaleOut")]
     [Consumes("multipart/form-data")]
     public async Task<IActionResult> UploadTemplateSaleOut(IFormFile file)

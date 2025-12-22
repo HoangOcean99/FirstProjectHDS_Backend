@@ -13,6 +13,7 @@ public class MasterProductController : ControllerBase
         _logger = logger;
     }
 
+
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -20,12 +21,14 @@ public class MasterProductController : ControllerBase
         return Ok(data);
     }
 
+
     [HttpPost]
     public async Task<IActionResult> Insert([FromBody] MasterProduct masterProduct)
     {
         var data = await _productService.addMasterProduct(masterProduct);
         return Ok(data);
     }
+
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)

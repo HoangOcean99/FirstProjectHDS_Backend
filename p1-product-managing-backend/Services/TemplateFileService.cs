@@ -7,11 +7,9 @@ public class TemplateFileService : ITemplateFileService
 {
     private readonly ValidationUploadFileMasterProduct _validationUploadFileMasterProduct;
     private readonly ValidationUploadFileSaleOut _validationUploadFileSaleOut;
-
     private readonly IMasterProductService _masterProductService;
     private readonly ISaleOutService _saleOutService;
     private readonly DapperContext _context;
-
 
     public TemplateFileService(
         DapperContext context,
@@ -27,9 +25,7 @@ public class TemplateFileService : ITemplateFileService
         _saleOutService = saleOutService;
     }
 
-    public async Task<byte[]> DownloadSaleOutReport(
-    int startDate,
-    int endDate)
+    public async Task<byte[]> DownloadSaleOutReport(int startDate, int endDate)
     {
         var data = await GetSaleOutReportAsync(startDate, endDate);
 
@@ -73,9 +69,7 @@ public class TemplateFileService : ITemplateFileService
         }
     }
 
-    public async Task<List<SaleOutReport>> GetSaleOutReportAsync(
-        int startDate,
-        int endDate)
+    public async Task<List<SaleOutReport>> GetSaleOutReportAsync(int startDate, int endDate)
     {
         using var conn = _context.CreateConnection();
 
@@ -294,6 +288,4 @@ public class TemplateFileService : ITemplateFileService
             Amount = quantity * price
         };
     }
-
-
 }

@@ -36,11 +36,11 @@ public class ValidationUploadFileSaleOut
     }
 
     public async Task ValidateDuplicateProductAsync(
-    string productCode,
-    string customerPoNo,
-    Dictionary<string, HashSet<string>> existedSaleOuts,
-    int row
-)
+        string productCode,
+        string customerPoNo,
+        Dictionary<string, HashSet<string>> existedSaleOuts,
+        int row
+    )
     {
         // ===== Check trùng trong file =====
         if (!existedSaleOuts.ContainsKey(customerPoNo))
@@ -94,8 +94,6 @@ public class ValidationUploadFileSaleOut
             );
         }
     }
-
-
 
     public void ValidateHeader(ExcelWorksheet ws)
     {
