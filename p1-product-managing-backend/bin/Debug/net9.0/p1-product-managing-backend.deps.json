@@ -10,7 +10,6 @@
         "dependencies": {
           "Dapper": "2.1.66",
           "EPPlus": "8.4.0",
-          "Microsoft.AspNetCore.OpenApi": "9.0.4",
           "Microsoft.Data.SqlClient": "6.1.3",
           "QRCoder": "1.7.0",
           "QuestPDF": "2025.12.0"
@@ -74,17 +73,6 @@
           "lib/net9.0/EPPlus.Interfaces.dll": {
             "assemblyVersion": "8.4.0.0",
             "fileVersion": "8.4.0.0"
-          }
-        }
-      },
-      "Microsoft.AspNetCore.OpenApi/9.0.4": {
-        "dependencies": {
-          "Microsoft.OpenApi": "1.6.17"
-        },
-        "runtime": {
-          "lib/net9.0/Microsoft.AspNetCore.OpenApi.dll": {
-            "assemblyVersion": "9.0.4.0",
-            "fileVersion": "9.0.425.16403"
           }
         }
       },
@@ -444,14 +432,6 @@
           }
         }
       },
-      "Microsoft.OpenApi/1.6.17": {
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.OpenApi.dll": {
-            "assemblyVersion": "1.6.17.0",
-            "fileVersion": "1.6.17.0"
-          }
-        }
-      },
       "Microsoft.SqlServer.Server/1.0.0": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.SqlServer.Server.dll": {
@@ -785,13 +765,6 @@
       "path": "epplus.interfaces/8.4.0",
       "hashPath": "epplus.interfaces.8.4.0.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.OpenApi/9.0.4": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-GfZWPbZz1aAtEO3wGCkpeyRc0gzr/+VRHnUgY/YjqVPDlHbeKWCXw3IxKarQdo9myC2O1QBf652Mo50QqbXYRg==",
-      "path": "microsoft.aspnetcore.openapi/9.0.4",
-      "hashPath": "microsoft.aspnetcore.openapi.9.0.4.nupkg.sha512"
-    },
     "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
       "type": "package",
       "serviceable": true,
@@ -973,13 +946,6 @@
       "sha512": "sha512-s/s20YTVY9r9TPfTrN5g8zPF1YhwxyqO6PxUkrYTGI2B+OGPe9AdajWZrLhFqXIvqIW23fnUE4+ztrUWNU1+9g==",
       "path": "microsoft.io.recyclablememorystream/3.0.1",
       "hashPath": "microsoft.io.recyclablememorystream.3.0.1.nupkg.sha512"
-    },
-    "Microsoft.OpenApi/1.6.17": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Le+kehlmrlQfuDFUt1zZ2dVwrhFQtKREdKBo+rexOwaCoYP0/qpgT9tLxCsZjsgR5Itk1UKPcbgO+FyaNid/bA==",
-      "path": "microsoft.openapi/1.6.17",
-      "hashPath": "microsoft.openapi.1.6.17.nupkg.sha512"
     },
     "Microsoft.SqlServer.Server/1.0.0": {
       "type": "package",

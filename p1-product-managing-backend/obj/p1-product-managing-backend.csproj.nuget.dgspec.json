@@ -58,10 +58,6 @@
               "target": "Package",
               "version": "[8.4.0, )"
             },
-            "Microsoft.AspNetCore.OpenApi": {
-              "target": "Package",
-              "version": "[9.0.4, )"
-            },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
               "version": "[6.1.3, )"

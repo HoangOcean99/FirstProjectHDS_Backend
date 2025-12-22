@@ -171,7 +171,6 @@ E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backe
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\bin\Debug\net9.0\Dapper.dll
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\bin\Debug\net9.0\EPPlus.dll
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\bin\Debug\net9.0\EPPlus.Interfaces.dll
-E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\bin\Debug\net9.0\Microsoft.Bcl.Cryptography.dll
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\bin\Debug\net9.0\Microsoft.Data.SqlClient.dll
@@ -197,7 +196,6 @@ E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backe
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\bin\Debug\net9.0\Microsoft.IO.RecyclableMemoryStream.dll
-E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\bin\Debug\net9.0\Microsoft.OpenApi.dll
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\bin\Debug\net9.0\Microsoft.SqlServer.Server.dll
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\bin\Debug\net9.0\Microsoft.Win32.SystemEvents.dll
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\bin\Debug\net9.0\QRCoder.dll
@@ -262,7 +260,6 @@ E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backe
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\obj\Debug\net9.0\p1-product-managing-backend.AssemblyInfoInputs.cache
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\obj\Debug\net9.0\p1-product-managing-backend.AssemblyInfo.cs
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\obj\Debug\net9.0\p1-product-managing-backend.csproj.CoreCompileInputs.cache
-E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\obj\Debug\net9.0\p1-product-managing-backend.MvcApplicationPartsAssemblyInfo.cs
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\obj\Debug\net9.0\p1-product-managing-backend.MvcApplicationPartsAssemblyInfo.cache
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\obj\Debug\net9.0\p1-product-managing-backend.sourcelink.json
 E:\LamViec\HDSoft\FirstProject\FirstProjectHDS_Backend\p1-product-managing-backend\obj\Debug\net9.0\scopedcss\bundle\p1-product-managing-backend.styles.css
