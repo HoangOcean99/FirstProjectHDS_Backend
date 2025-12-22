@@ -1,10 +1,10 @@
 using Dapper;
 using OfficeOpenXml;
 
-public class ValidationUploadFile
+public class ValidationUploadFileMasterProduct
 {
     private readonly DapperContext _context;
-    public ValidationUploadFile(DapperContext context)
+    public ValidationUploadFileMasterProduct(DapperContext context)
     {
         _context = context;
     }

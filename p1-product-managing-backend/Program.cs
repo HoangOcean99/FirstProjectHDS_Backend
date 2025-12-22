@@ -2,11 +2,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddScoped< DapperContext > ();
+builder.Services.AddScoped<DapperContext>();
 builder.Services.AddScoped<ISaleOutService, SaleOutService>();
 builder.Services.AddScoped<IMasterProductService, MasterProductService>();
 builder.Services.AddScoped<ITemplateFileService, TemplateFileService>();
-builder.Services.AddScoped<ValidationUploadFile>();
+builder.Services.AddScoped<ValidationUploadFileMasterProduct>();
+builder.Services.AddScoped<ValidationUploadFileSaleOut>();
+
 
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
