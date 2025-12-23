@@ -205,4 +205,39 @@ public class SaleOutService : ISaleOutService
         return $"{prefix}{next:D4}";
     }
 
+    public async Task<IEnumerable<string>> getAllSaleOutNo()
+    {
+        var sql = """
+            SELECT DISTINCT SaleOutNo
+            FROM SaleOut
+            ORDER BY SaleOutNo DESC
+        """;
+        using var conn = _context.CreateConnection();
+        return await conn.QueryAsync<string>(sql);
+    }
+    public async Task<List<SaleOutPdf>> getSaleOutByNo(string saleOutNo)
+    {
+        var sql = """
+            SELECT
+                p.ProductCode,
+                p.ProductName,
+                SUM(s.Quantity) AS Quantity,
+                s.Price,
+                SUM(s.Amount) AS Amount,
+                s.CustomerName,
+                s.OrderDate
+            FROM MasterProduct p
+            JOIN SaleOut s ON s.ProductId = p.Id
+            WHERE s.SaleOutNo = @SaleOutNo
+            GROUP BY
+                p.ProductCode,
+                p.ProductName,
+                s.Price,
+                s.CustomerName,
+                s.OrderDate
+        """;
+        using var conn = _context.CreateConnection();
+        return (await conn.QueryAsync<SaleOutPdf>(sql, new { SaleOutNo = saleOutNo })).ToList();
+    }
+
 }

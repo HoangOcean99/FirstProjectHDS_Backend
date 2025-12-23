@@ -1,13 +1,17 @@
+using QuestPDF.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+QuestPDF.Settings.License = LicenseType.Community;
 
+builder.Services.AddControllers();
 builder.Services.AddScoped<DapperContext>();
 builder.Services.AddScoped<ISaleOutService, SaleOutService>();
 builder.Services.AddScoped<IMasterProductService, MasterProductService>();
 builder.Services.AddScoped<ITemplateFileService, TemplateFileService>();
-builder.Services.AddScoped<ValidationUploadFileMasterProduct>();
+builder.Services.AddScoped<IReportPdfService, ReportPdfService>();
 builder.Services.AddScoped<ValidationUploadFileSaleOut>();
+builder.Services.AddScoped<ValidationUploadFileMasterProduct>();
 
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";

@@ -52,9 +52,9 @@ public class TemplateFileService : ITemplateFileService
         ws.Cells["A1"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
         ws.Cells["B3"].Value = "Từ ngày:";
-        ws.Cells["C3"].Value = formatNumbertoDateString(startDate);
+        ws.Cells["C3"].Value = DateHelper.formatNumbertoDateString(startDate);
         ws.Cells["E3"].Value = "Đến ngày:";
-        ws.Cells["F3"].Value = formatNumbertoDateString(endDate);
+        ws.Cells["F3"].Value = DateHelper.formatNumbertoDateString(endDate);
 
         ws.Cells["B3"].Style.Font.Size = 12;
         ws.Cells["B3"].Style.Font.Bold = true;
@@ -82,9 +82,9 @@ public class TemplateFileService : ITemplateFileService
             ws.Cells[row, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
             ws.Cells[row, 2].Value = item.ProductCode;
             ws.Cells[row, 3].Value = item.ProductName;
-            ws.Cells[row, 4].Value = FormatNumber((long)item.Quantity);
-            ws.Cells[row, 5].Value = FormatNumber((long)item.Price);
-            ws.Cells[row, 6].Value = FormatNumber((long)item.Amount);
+            ws.Cells[row, 4].Value = DateHelper.FormatNumber((long)item.Quantity);
+            ws.Cells[row, 5].Value = DateHelper.FormatNumber((long)item.Price);
+            ws.Cells[row, 6].Value = DateHelper.FormatNumber((long)item.Amount);
             row++;
         }
 
@@ -94,8 +94,8 @@ public class TemplateFileService : ITemplateFileService
         ws.Cells[$"A{row}"].Style.Font.Size = 13;
         ws.Cells[$"A{row}"].Style.Font.Bold = true;
         ws.Cells[$"A{row}"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-        ws.Cells[row, 4].Value = FormatNumber(totalQuantity);
-        ws.Cells[row, 6].Value = FormatNumber(totalAmount);
+        ws.Cells[row, 4].Value = DateHelper.FormatNumber(totalQuantity);
+        ws.Cells[row, 6].Value = DateHelper.FormatNumber(totalAmount);
 
         ws.Cells[ws.Dimension.Address].AutoFitColumns();
         ws.Cells[1, 1, 1, 5].Style.Font.Bold = true;
@@ -106,15 +106,6 @@ public class TemplateFileService : ITemplateFileService
             stream.Position = 0;
             return stream.ToArray();
         }
-    }
-    public string formatNumbertoDateString(int date)
-    {
-        string dateString = date.ToString();
-        return dateString.Substring(0, 4) + "/" + dateString.Substring(4, 2) + "/" + dateString.Substring(6, 2);
-    }
-    public static string FormatNumber(long number)
-    {
-        return number.ToString("#,##0");
     }
 
     public async Task<List<SaleOutReport>> GetSaleOutReportAsync(int startDate, int endDate)
@@ -338,4 +329,6 @@ public class TemplateFileService : ITemplateFileService
             Amount = quantity * price
         };
     }
+
+
 }

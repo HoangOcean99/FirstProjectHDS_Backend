@@ -4,4 +4,5 @@ public interface ITemplateFileService
     Task<byte[]> DownloadSaleOutReport(int startDate, int endDate);
     Task<ImportResult> importExcelTemplateMasterProduct(IFormFile file);
     Task<ImportResult> importExcelTemplateSaleOut(IFormFile file);
+
 }

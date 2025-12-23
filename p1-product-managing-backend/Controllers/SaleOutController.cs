@@ -44,4 +44,12 @@ public class SaleOutController : ControllerBase
         var data = await _saleOutService.editSaleOut(saleOut);
         return Ok(data);
     }
+
+    [HttpGet("{GetAllSaleOutNo}")]
+    public async Task<IActionResult> getAllSaleOutNo()
+    {
+        var data = await _saleOutService.getAllSaleOutNo();
+        return Ok(data);
+    }
+
 }

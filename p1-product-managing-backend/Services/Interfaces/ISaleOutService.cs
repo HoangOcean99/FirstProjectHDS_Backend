@@ -5,5 +5,7 @@ public interface ISaleOutService
     Task<bool> deleteSaleOut(Guid Id);
     Task<bool> editSaleOut(SaleOut saleOut);
     Task<string> GenerateSaleOutNoAsync();
+    Task<IEnumerable<string>> getAllSaleOutNo();
+    Task<List<SaleOutPdf>> getSaleOutByNo(string saleOutNo);
 
 }
