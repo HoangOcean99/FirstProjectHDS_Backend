@@ -1,12 +1,14 @@
 
 
+using System.Data;
 using Dapper;
 using Microsoft.Data.SqlClient;
+using OfficeOpenXml.FormulaParsing.FormulaExpressions.CompileResults;
 
 public class SaleOutService : ISaleOutService
 {
     private readonly DapperContext _context;
-    
+
     public SaleOutService(DapperContext context)
     {
         _context = context;
@@ -35,10 +37,13 @@ public class SaleOutService : ISaleOutService
         using var conn = _context.CreateConnection();
         return await conn.QueryAsync<SaleOut>(sql);
     }
-    
-    public async Task<SaleOut> AddSaleOutAsync(SaleOut saleOut)
+
+    public async Task<SaleOut> AddSaleOutAsync(SaleOut saleOut, string saleOutNo = "")
     {
         using var conn = _context.CreateConnection();
+
+        if (string.IsNullOrEmpty(saleOutNo))
+            saleOutNo = await GenerateSaleOutNoAsync();
 
         var selectProductSql = """
             SELECT Id
@@ -62,12 +67,12 @@ public class SaleOutService : ISaleOutService
         var insertSql = """
         INSERT INTO SaleOut (
             CustomerPoNo, OrderDate, CustomerName,
-            ProductId, Quantity, Price, QuantityPerBox, BoxQuantity
+            ProductId, Quantity, Price, QuantityPerBox, BoxQuantity, SaleOutNo
         )
         OUTPUT INSERTED.Id
         VALUES (
             @CustomerPoNo, @OrderDate, @CustomerName,
-            @ProductId, @Quantity, @Price, @QuantityPerBox, @BoxQuantity
+            @ProductId, @Quantity, @Price, @QuantityPerBox, @BoxQuantity, @saleOutNo
         )
     """;
         Guid idInsert;
@@ -84,7 +89,8 @@ public class SaleOutService : ISaleOutService
                     saleOut.Quantity,
                     saleOut.Price,
                     saleOut.QuantityPerBox,
-                    saleOut.BoxQuantity
+                    saleOut.BoxQuantity,
+                    saleOutNo
                 }
             );
         }
@@ -106,7 +112,7 @@ public class SaleOutService : ISaleOutService
 
         return await conn.QuerySingleAsync<SaleOut>(selectSql, new { Id = idInsert });
     }
-    
+
     public async Task<bool> deleteSaleOut(Guid Id)
     {
         var sql = """
@@ -173,4 +179,30 @@ public class SaleOutService : ISaleOutService
             );
         }
     }
+
+    public async Task<string> GenerateSaleOutNoAsync()
+    {
+        using var conn = _context.CreateConnection();
+        var now = DateTime.Now;
+        var prefix = $"STO{now:yyyyMM}";
+
+        var selectSql = @"SELECT TOP 1 SaleOutNo 
+          FROM SaleOut 
+          WHERE SaleOutNo LIKE @Prefix + '%'
+          ORDER BY SaleOutNo DESC";
+        var lastNo = await conn.QueryFirstOrDefaultAsync<string>(
+            selectSql,
+            new { Prefix = prefix });
+
+        int next = 1;
+
+        if (!string.IsNullOrEmpty(lastNo))
+        {
+            var numberPart = lastNo.Substring(prefix.Length);
+            next = int.Parse(numberPart) + 1;
+        }
+
+        return $"{prefix}{next:D4}";
+    }
+
 }

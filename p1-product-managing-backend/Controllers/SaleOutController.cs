@@ -22,7 +22,7 @@ public class SaleOutController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Insert([FromBody] SaleOut saleOut)
     {
-        var data = await _saleOutService.AddSaleOutAsync(saleOut);
+        var data = await _saleOutService.AddSaleOutAsync(saleOut, "");
         return Ok(data);
     }
 
@@ -36,8 +36,8 @@ public class SaleOutController : ControllerBase
 
         return Ok(new { message = "Xóa sản phẩm thành công." });
     }
-    
-    
+
+
     [HttpPut]
     public async Task<IActionResult> Edit([FromBody] SaleOut saleOut)
     {
