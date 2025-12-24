@@ -12,27 +12,54 @@ public class ValidationUploadFileSaleOut
 
     public void ValidateRequiredFields(SaleOut saleOut, int row)
     {
+        string errorFields = "";
+        int countErrors = 0;
         if (string.IsNullOrWhiteSpace(saleOut.CustomerPoNo))
-            throw new Exception($"Dòng {row}: Customer PO No không được để trống");
+        {
+            errorFields += "- Customer PO No không được để trống<br/>";
+            countErrors++;
+        }
 
         if (saleOut.OrderDate <= 0)
-            throw new Exception($"Dòng {row}: Ngày đơn hàng không hợp lệ");
+        {
+            errorFields += "- Ngày đơn hàng không hợp lệ<br/>";
+            countErrors++;
+        }
 
         if (string.IsNullOrWhiteSpace(saleOut.CustomerName))
-            throw new Exception($"Dòng {row}: Tên khách hàng không được để trống");
+        {
+            errorFields += "- Tên khách hàng không được để trống<br/>";
+            countErrors++;
+        }
 
         if (string.IsNullOrWhiteSpace(saleOut.ProductCode))
-            throw new Exception($"Dòng {row}: Mã sản phẩm không được để trống");
+        {
+            errorFields += "- Mã sản phẩm không được để trống<br/>";
+            countErrors++;
+        }
 
         if (saleOut.Quantity <= 0)
-            throw new Exception($"Dòng {row}: Số lượng phải lớn hơn 0");
+        {
+            errorFields += "- Số lượng phải lớn hơn 0<br/>";
+            countErrors++;
+        }
 
-        if (saleOut.Price < 0)
-            throw new Exception($"Dòng {row}: Đơn giá không được âm");
+        if (saleOut.Price <= 0)
+        {
+            errorFields += "- Đơn giá không được âm<br/>";
+            countErrors++;
+        }
 
         if (saleOut.QuantityPerBox <= 0)
-            throw new Exception($"Dòng {row}: Số lượng / thùng phải lớn hơn 0");
+        {
+            errorFields += "- Số lượng / thùng phải lớn hơn 0<br/>";
+            countErrors++;
+        }
 
+        if (errorFields != "" && countErrors < 7 && countErrors > 0)
+        {
+            throw new Exception(errorFields);
+        }
     }
 
     public async Task ValidateDuplicateProductAsync(
@@ -42,14 +69,15 @@ public class ValidationUploadFileSaleOut
         int row
     )
     {
-        // ===== Check trùng trong file =====
+        if (string.IsNullOrWhiteSpace(productCode) && string.IsNullOrWhiteSpace(customerPoNo))
+            return;
         if (!existedSaleOuts.ContainsKey(customerPoNo))
             existedSaleOuts[customerPoNo] = new HashSet<string>();
 
         if (!existedSaleOuts[customerPoNo].Add(productCode))
         {
             throw new Exception(
-                $"Dòng {row}: Số PO {customerPoNo}, Mã sản phẩm {productCode} bị trùng trong file"
+                $"Số PO {customerPoNo}, Mã sản phẩm {productCode} bị trùng trong file"
             );
         }
 
@@ -70,7 +98,7 @@ public class ValidationUploadFileSaleOut
         if (productId == null)
         {
             throw new Exception(
-                $"Dòng {row}: Mã sản phẩm {productCode} không tồn tại trong hệ thống"
+                $"Mã sản phẩm {productCode} không tồn tại trong hệ thống"
             );
         }
 
@@ -90,26 +118,31 @@ public class ValidationUploadFileSaleOut
         if (count > 0)
         {
             throw new Exception(
-                $"Dòng {row}: Số PO {customerPoNo}, Mã sản phẩm {productCode} đã tồn tại trên hệ thống"
+                $"Số PO {customerPoNo}, Mã sản phẩm {productCode} đã tồn tại trên hệ thống"
             );
         }
     }
 
     public void ValidateHeader(ExcelWorksheet ws)
     {
+        string errorHeader = "";
         if (ws.Cells[1, 1].Text != "Số PO khách hàng")
-            throw new Exception("Sai template: thiếu cột Sô PO khách hàng");
-        if (ws.Cells[1, 2].Text != "Ngày đặt hàng")
-            throw new Exception("Sai template: thiếu cột Ngày đặt hàng");
+            errorHeader += "- Sai template: thiếu cột Sô PO khách hàng<br/>";
+        if (ws.Cells[1, 2].Text != "Ngày đặt hàng (yyyy/MM/dd)")
+            errorHeader += "- Sai template: thiếu cột Ngày đặt hàng<br/>";
         if (ws.Cells[1, 3].Text != "Khách hàng")
-            throw new Exception("Sai template: thiếu cột Tên khách hàng");
+            errorHeader += "- Sai template: thiếu cột Tên khách hàng<br/>";
         if (ws.Cells[1, 4].Text != "Mã sản phẩm")
-            throw new Exception("Sai template: thiếu cột Mã sản phẩm");
+            errorHeader += "- Sai template: thiếu cột Mã sản phẩm<br/>";
         if (ws.Cells[1, 5].Text != "Số lượng")
-            throw new Exception("Sai template: thiếu cột Số lượng");
+            errorHeader += "- Sai template: thiếu cột Số lượng<br/>";
         if (ws.Cells[1, 6].Text != "Số lượng/thùng")
-            throw new Exception("Sai template: thiếu cột Số lượng/Thùng");
+            errorHeader += "- Sai template: thiếu cột Số lượng/Thùng<br/>";
         if (ws.Cells[1, 7].Text != "Đơn giá")
-            throw new Exception("Sai template: thiếu cột Đơn giá");
+            errorHeader += "- Sai template: thiếu cột Đơn giá<br/>";
+        if (errorHeader != "")
+        {
+            throw new Exception(errorHeader);
+        }
     }
 }

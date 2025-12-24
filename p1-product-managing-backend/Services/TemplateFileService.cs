@@ -183,13 +183,15 @@ public class TemplateFileService : ITemplateFileService
                     existedCodes,
                     i
                 );
-
-                existedCodes.Add(product.ProductCode);
-                validProducts.Add(product);
+                if (!string.IsNullOrWhiteSpace(product.ProductCode))
+                {
+                    existedCodes.Add(product.ProductCode);
+                    validProducts.Add(product);
+                }
             }
             catch (Exception ex)
             {
-                result.Errors.Add($"Dòng {i}: {ex.Message}");
+                result.Errors.Add($"<b>Dòng {i}</b>: {ex.Message}");
             }
         }
 
@@ -246,7 +248,8 @@ public class TemplateFileService : ITemplateFileService
                     i
                 );
 
-                validSaleOuts.Add(saleOut);
+                if (!string.IsNullOrWhiteSpace(saleOut.ProductCode))
+                    validSaleOuts.Add(saleOut);
             }
             catch (Exception ex)
             {

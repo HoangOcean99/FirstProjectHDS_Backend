@@ -8,27 +8,51 @@ public class ValidationUploadFileMasterProduct
     {
         _context = context;
     }
-   
 
     public void ValidateRequiredFields(MasterProduct product, int row)
     {
+        string errorFields = "";
+        int countErrors = 0;
         if (string.IsNullOrWhiteSpace(product.ProductCode))
-            throw new Exception("Mã sản phẩm không được để trống");
+        {
+            errorFields += "- Mã sản phẩm không được để trống<br/>";
+            countErrors++;
+        }
 
         if (string.IsNullOrWhiteSpace(product.ProductName))
-            throw new Exception("Tên sản phẩm không được để trống");
+        {
+            errorFields += "- Tên sản phẩm không được để trống<br/>";
+            countErrors++;
+        }
 
         if (string.IsNullOrWhiteSpace(product.Unit))
-            throw new Exception("Đơn vị tính không được để trống");
+        {
+            errorFields += "- Đơn vị tính không được để trống<br/>";
+            countErrors++;
+        }
 
         if (string.IsNullOrWhiteSpace(product.Specification))
-            throw new Exception("Quy cách không được để trống");
+        {
+            errorFields += "- Quy cách không được để trống<br/>";
+            countErrors++;
+        }
 
         if (product.QuantityPerBox <= 0)
-            throw new Exception("Số lượng/thùng không được để trống và phải lớn hơn 0");
+        {
+            errorFields += "- Số lượng/thùng không được để trống và phải lớn hơn 0<br/>";
+            countErrors++;
+        }
 
         if (product.ProductWeight <= 0)
-            throw new Exception("Trọng lượng không được để trống và phải lớn hơn 0");
+        {
+            errorFields += "- Trọng lượng không được để trống và phải lớn hơn 0<br/>";
+            countErrors++;
+        }
+
+        if (errorFields != "" && countErrors < 6 && countErrors > 0)
+        {
+            throw new Exception(errorFields);
+        }
     }
 
 
@@ -57,18 +81,23 @@ public class ValidationUploadFileMasterProduct
 
     public void ValidateHeader(ExcelWorksheet ws)
     {
+        string errorHeader = "";
         if (ws.Cells[1, 1].Text != "Mã sản phẩm")
-            throw new Exception("Sai template: thiếu cột Mã sản phẩm");
+            errorHeader += "- Sai template: thiếu cột Mã sản phẩm<br/>";
         if (ws.Cells[1, 2].Text != "Tên sản phẩm")
-            throw new Exception("Sai template: thiếu cột Tên sản phẩm");
+            errorHeader += "- Sai template: thiếu cột Tên sản phẩm<br/>";
         if (ws.Cells[1, 3].Text != "Đơn vị tính")
-            throw new Exception("Sai template: thiếu cột Đơn vị tính");
+            errorHeader += "- Sai template: thiếu cột Đơn vị tính<br/>";
         if (ws.Cells[1, 4].Text != "Quy cách")
-            throw new Exception("Sai template: thiếu cột Quy cách");
+            errorHeader += "- Sai template: thiếu cột Quy cách<br/>";
         if (ws.Cells[1, 5].Text != "Số lượng/Thùng")
-            throw new Exception("Sai template: thiếu cột Số lượng/Thùng");
+            errorHeader += "- Sai template: thiếu cột Số lượng/Thùng<br/>";
         if (ws.Cells[1, 6].Text != "Trọng lượng")
-            throw new Exception("Sai template: thiếu cột Trọng lượng");
+            errorHeader += "- Sai template: thiếu cột Trọng lượng<br/>";
+        if (errorHeader != "")
+        {
+            throw new Exception(errorHeader);
+        }
     }
 
 }
