@@ -160,7 +160,6 @@ public class SaleOutPdfDocument : IDocument
     {
         using var qrGenerator = new QRCodeGenerator();
         using var qrData = qrGenerator.CreateQrCode(content, QRCodeGenerator.ECCLevel.Q);
-
         var qrCode = new PngByteQRCode(qrData);
         return qrCode.GetGraphic(6);
     }

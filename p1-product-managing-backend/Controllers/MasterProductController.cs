@@ -21,6 +21,14 @@ public class MasterProductController : ControllerBase
         return Ok(data);
     }
 
+    [HttpGet("get-paged")]
+    public async Task<IActionResult> GetProductByPage(
+        [FromQuery] int pageIndex = 1,
+        [FromQuery] int pageSize = 10)
+    {
+        var data = await _productService.GetPagedAsync(pageIndex, pageSize);
+        return Ok(data);
+    }
 
     [HttpPost]
     public async Task<IActionResult> Insert([FromBody] MasterProduct masterProduct)

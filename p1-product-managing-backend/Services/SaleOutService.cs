@@ -37,6 +37,47 @@ public class SaleOutService : ISaleOutService
         using var conn = _context.CreateConnection();
         return await conn.QueryAsync<SaleOut>(sql);
     }
+    public async Task<PagedResult<SaleOut>> GetPagedAsync(
+        int pageIndex,
+        int pageSize)
+    {
+        var offset = (pageIndex - 1) * pageSize;
+
+        var sql = """
+            select 
+                s.Id,
+                s.CustomerPoNo,
+                s.OrderDate,
+                s.CustomerName,
+                p.ProductCode,
+                p.ProductName,
+                p.Unit,
+                s.Quantity,
+                s.Price,
+                s.Amount,
+                s.QuantityPerBox,
+                s.BoxQuantity
+            from SaleOut s
+            join MasterProduct p on s.ProductId = p.Id
+            order by s.CustomerPoNo, p.ProductCode
+            OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY;
+
+            SELECT COUNT(*) FROM SaleOut;
+        """;
+
+        using var conn = _context.CreateConnection();
+        using var multi = await conn.QueryMultipleAsync(sql, new
+        {
+            Offset = offset,
+            PageSize = pageSize
+        });
+
+        return new PagedResult<SaleOut>
+        {
+            Items = await multi.ReadAsync<SaleOut>(),
+            Total = await multi.ReadSingleAsync<int>()
+        };
+    }
 
     public async Task<SaleOut> AddSaleOutAsync(SaleOut saleOut, string saleOutNo = "")
     {

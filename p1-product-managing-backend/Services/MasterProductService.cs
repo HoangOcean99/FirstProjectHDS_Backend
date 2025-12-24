@@ -7,7 +7,7 @@ using Microsoft.Data.SqlClient;
 public class MasterProductService : IMasterProductService
 {
     private readonly DapperContext _context;
-    
+
     public MasterProductService(DapperContext context)
     {
         _context = context;
@@ -24,7 +24,36 @@ public class MasterProductService : IMasterProductService
         using var conn = _context.CreateConnection();
         return await conn.QueryAsync<MasterProduct>(sql);
     }
-    
+    public async Task<PagedResult<MasterProduct>> GetPagedAsync(
+        int pageIndex,
+        int pageSize)
+    {
+        var offset = (pageIndex - 1) * pageSize;
+
+        var sql = """
+            SELECT Id, ProductCode, ProductName, Unit,
+                   Specification, QuantityPerBox, ProductWeight
+            FROM MasterProduct
+            ORDER BY ProductCode    
+            OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY;
+
+            SELECT COUNT(*) FROM MasterProduct;
+        """;
+
+        using var conn = _context.CreateConnection();
+        using var multi = await conn.QueryMultipleAsync(sql, new
+        {
+            Offset = offset,
+            PageSize = pageSize
+        });
+
+        return new PagedResult<MasterProduct>
+        {
+            Items = await multi.ReadAsync<MasterProduct>(),
+            Total = await multi.ReadSingleAsync<int>()
+        };
+    }
+
     public async Task<IEnumerable<MasterProduct>> addMasterProduct(MasterProduct masterProduct)
     {
         var insertSql = """
